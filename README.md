@@ -4,37 +4,38 @@ Dieses Repository enthält Python-Projekte zum Lernen und Üben von Mathematik, 
 
 ## 📂 Projekte
 
-### 1. 🌐 Zuordnungen Lern-App (WEB-VERSION) ⭐ NEU!
+### 1. 🌐 Zuordnungen Lern-App (STANDALONE) ⭐⭐⭐ EMPFOHLEN!
 
 Eine **moderne Browser-Anwendung** zum Lernen von proportionalen und antiproportionalen Zuordnungen!
 
-**✨ Läuft im Browser - viel einfacher!**
+**✨ EINFACH HTML ÖFFNEN - KEINE INSTALLATION! ✨**
 
 **Features:**
-- 🌐 **Browser-basiert** - läuft überall (Handy, Tablet, PC)
+- 🎉 **KEINE Installation nötig** - einfach `index.html` öffnen!
+- 🌐 **Funktioniert offline** - kein Internet benötigt
+- 🚫 **Kein Python/Flask** - nur Browser
+- 📱 **Läuft überall** - Handy, Tablet, PC
 - 🎨 **Modernes Design** - farbenfroh und responsiv
 - 📖 Ausführliche Theorie mit 4 interaktiven Tabs
 - 🎯 Quiz zum Erkennen von Zuordnungstypen (10 Fragen)
 - ✏️ Rechenübungen mit adaptiver Schwierigkeit (Level 1-5)
-- 📊 Fortschrittsverfolgung in Echtzeit
+- 📊 Fortschrittsverfolgung (gespeichert im Browser)
 - 💡 Hilfestellungen und Tipps
 - 🎮 Intelligente Levelanpassung für jeden Schüler
-- ⚡ Automatischer Browser-Start
 
 **Quick Start:**
 ```bash
-# 1. Flask installieren (nur einmal):
-pip install flask
+# SO EINFACH:
+1. Doppelklick auf index.html
+2. Fertig! 🎉
 
-# 2. App starten:
-python3 START.py
-
-# Das war's! Browser öffnet sich automatisch 🎉
+# Die App öffnet sich im Browser!
 ```
 
-**Oder mit Doppelklick auf `START.py`**
-
-**Dokumentation:** [README_WEB.md](README_WEB.md) (WEB) | [README_APP.md](README_APP.md) (Desktop)
+**Dokumentation:**
+- **⭐ [README_STANDALONE.md](README_STANDALONE.md)** (Standalone - EMPFOHLEN!)
+- [README_WEB.md](README_WEB.md) (Flask-Version - optional)
+- [README_APP.md](README_APP.md) (Desktop-Version - optional)
 
 ---
 
