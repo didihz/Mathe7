@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Fortschritt - Deine Statistiken{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📊 Dein Fortschritt</h1>
+    <p>Sieh dir deine Leistungen und Erfolge an!</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="stat-level">{{ progress.level }}</div>
+        <div class="stat-label">Aktuelles Level</div>
+        <div class="stat-sublabel">von 5</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value" id="stat-correct">{{ progress.correct_answers }}</div>
+        <div class="stat-label">Richtige Antworten</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value" id="stat-total">{{ progress.total_attempts }}</div>
+        <div class="stat-label">Gesamte Versuche</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-value" id="stat-exercises">{{ progress.exercises_completed }}</div>
+        <div class="stat-label">Abgeschlossene Übungen</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="stat-quiz">{{ progress.quiz_score }}/10</div>
+        <div class="stat-label">Quiz Punktzahl</div>
+    </div>
+
+    <div class="stat-card" id="success-rate-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-value" id="stat-rate">-</div>
+        <div class="stat-label">Erfolgsquote</div>
+    </div>
+</div>
+
+<div id="motivation-message" class="motivation-message"></div>
+
+<div class="progress-details">
+    <h2>🎓 Level-Übersicht</h2>
+    <div class="level-progress">
+        <div class="level-item {% if progress.level >= 1 %}completed{% endif %}">
+            <div class="level-number">1</div>
+            <div class="level-description">
+                <strong>Level 1 - Einfach</strong>
+                <p>Einfache proportionale Aufgaben</p>
+            </div>
+        </div>
+        <div class="level-item {% if progress.level >= 2 %}completed{% endif %}">
+            <div class="level-number">2</div>
+            <div class="level-description">
+                <strong>Level 2 - Mittel</strong>
+                <p>Schwierigere Zahlen und Dezimalstellen</p>
+            </div>
+        </div>
+        <div class="level-item {% if progress.level >= 3 %}completed{% endif %}">
+            <div class="level-number">3</div>
+            <div class="level-description">
+                <strong>Level 3 - Fortgeschritten</strong>
+                <p>Antiproportionale Zuordnungen</p>
+            </div>
+        </div>
+        <div class="level-item {% if progress.level >= 4 %}completed{% endif %}">
+            <div class="level-number">4</div>
+            <div class="level-description">
+                <strong>Level 4 - Schwer</strong>
+                <p>Gemischte Aufgaben</p>
+            </div>
+        </div>
+        <div class="level-item {% if progress.level >= 5 %}completed{% endif %}">
+            <div class="level-number">5</div>
+            <div class="level-description">
+                <strong>Level 5 - Experte</strong>
+                <p>Komplexe Mehrschritt-Aufgaben</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <button class="btn btn-danger" onclick="resetProgress()">
+        🔄 Fortschritt zurücksetzen
+    </button>
+    <a href="/uebungen" class="btn btn-success">
+        ✏️ Weiter üben
+    </a>
+    <a href="/" class="btn btn-secondary">
+        🏠 Zurück zum Menü
+    </a>
+</div>
+
+<script>
+// Lade aktuelle Daten
+async function loadProgress() {
+    try {
+        const response = await fetch('/api/progress');
+        const progress = await response.json();
+
+        // Update Statistiken
+        document.getElementById('stat-level').textContent = progress.level;
+        document.getElementById('stat-correct').textContent = progress.correct_answers;
+        document.getElementById('stat-total').textContent = progress.total_attempts;
+        document.getElementById('stat-exercises').textContent = progress.exercises_completed;
+        document.getElementById('stat-quiz').textContent = `${progress.quiz_score}/10`;
+
+        if (progress.total_attempts > 0) {
+            const rate = progress.success_rate;
+            document.getElementById('stat-rate').textContent = rate + '%';
+
+            // Färbe Erfolgsquote
+            const rateCard = document.getElementById('success-rate-card');
+            if (rate >= 80) {
+                rateCard.style.borderColor = '#4CAF50';
+            } else if (rate >= 60) {
+                rateCard.style.borderColor = '#2196F3';
+            } else if (rate >= 40) {
+                rateCard.style.borderColor = '#FF9800';
+            } else {
+                rateCard.style.borderColor = '#f44336';
+            }
+        }
+
+        // Zeige Motivation
+        showMotivation(progress);
+
+    } catch (error) {
+        console.error('Fehler beim Laden des Fortschritts:', error);
+    }
+}
+
+function showMotivation(progress) {
+    const messageEl = document.getElementById('motivation-message');
+    let message = '';
+
+    if (progress.level === 5 && progress.exercises_completed > 10) {
+        message = '🌟 Fantastisch! Du bist ein Zuordnungs-Experte!';
+        messageEl.className = 'motivation-message excellent';
+    } else if (progress.level >= 3) {
+        message = '👍 Super! Du machst große Fortschritte!';
+        messageEl.className = 'motivation-message good';
+    } else if (progress.exercises_completed > 5) {
+        message = '✨ Weiter so! Übung macht den Meister!';
+        messageEl.className = 'motivation-message ok';
+    } else {
+        message = '💪 Gut gestartet! Bleib dran!';
+        messageEl.className = 'motivation-message start';
+    }
+
+    messageEl.textContent = message;
+}
+
+async function resetProgress() {
+    if (confirm('Möchtest du wirklich deinen gesamten Fortschritt zurücksetzen?')) {
+        try {
+            await fetch('/api/reset_progress', {method: 'POST'});
+            alert('Fortschritt wurde zurückgesetzt!');
+            location.reload();
+        } catch (error) {
+            console.error('Fehler beim Zurücksetzen:', error);
+        }
+    }
+}
+
+// Lade Daten beim Start
+loadProgress();
+</script>
+{% endblock %}

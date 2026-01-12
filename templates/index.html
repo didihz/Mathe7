@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Hauptmenü - Zuordnungen Lern-App{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1 class="hero-title">📐 Zuordnungen Lern-App 📐</h1>
+    <p class="hero-subtitle">Lerne proportionale und antiproportionale Zuordnungen!</p>
+</div>
+
+<div class="progress-bar-container">
+    <div class="progress-info">
+        <span>🎯 Level {{ progress.level }}</span>
+        <span>✅ {{ progress.correct_answers }} richtig</span>
+        <span>📝 {{ progress.exercises_completed }} Übungen</span>
+    </div>
+</div>
+
+<div class="menu-grid">
+    <a href="/theorie" class="menu-card">
+        <div class="menu-icon">📖</div>
+        <h2>Theorie lernen</h2>
+        <p>Verstehe die Grundlagen von Zuordnungen mit vielen Beispielen</p>
+    </a>
+
+    <a href="/quiz" class="menu-card">
+        <div class="menu-icon">🎯</div>
+        <h2>Quiz: Erkennen</h2>
+        <p>Teste dein Wissen! Erkenne proportionale und antiproportionale Zuordnungen</p>
+        {% if progress.quiz_completed %}
+        <div class="badge">Score: {{ progress.quiz_score }}/10</div>
+        {% endif %}
+    </a>
+
+    <a href="/uebungen" class="menu-card">
+        <div class="menu-icon">✏️</div>
+        <h2>Übungen rechnen</h2>
+        <p>Übe mit dem Dreisatz - von einfach bis schwer (Level {{ progress.level }})</p>
+    </a>
+
+    <a href="/fortschritt" class="menu-card">
+        <div class="menu-icon">📊</div>
+        <h2>Fortschritt</h2>
+        <p>Sieh dir deine Statistiken und Erfolge an</p>
+    </a>
+</div>
+
+<div class="info-box">
+    <h3>💡 Tipp für Anfänger:</h3>
+    <p>1. Lies zuerst die <strong>Theorie</strong></p>
+    <p>2. Mache dann das <strong>Quiz</strong> zum Üben</p>
+    <p>3. Löse täglich <strong>5-10 Übungen</strong></p>
+</div>
+{% endblock %}

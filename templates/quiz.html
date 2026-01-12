@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz - Zuordnungen erkennen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🎯 Quiz: Zuordnungen erkennen</h1>
+    <p>Teste dein Wissen! Erkenne, welche Art von Zuordnung vorliegt.</p>
+</div>
+
+<div id="quiz-container">
+    <div class="quiz-header">
+        <div class="quiz-progress">
+            Frage <span id="question-number">1</span> von 10
+        </div>
+        <div class="quiz-score">
+            Punktzahl: <span id="current-score">0</span>
+        </div>
+    </div>
+
+    <div id="question-container" class="question-box">
+        <p id="question-text">Lade Frage...</p>
+    </div>
+
+    <div id="answer-buttons" class="answer-buttons">
+        <button class="btn btn-answer" onclick="submitAnswer('proportional')">
+            📈 Proportional
+        </button>
+        <button class="btn btn-answer" onclick="submitAnswer('antiproportional')">
+            📉 Antiproportional
+        </button>
+        <button class="btn btn-answer" onclick="submitAnswer('keine')">
+            ❌ Weder noch
+        </button>
+    </div>
+
+    <div id="result-container" class="result-container" style="display: none;">
+        <div id="result-message" class="result-message"></div>
+        <div id="explanation" class="explanation"></div>
+        <button class="btn btn-primary" onclick="nextQuestion()">
+            ➡️ Nächste Frage
+        </button>
+    </div>
+
+    <div id="final-result" class="final-result" style="display: none;">
+        <h2>🎓 Quiz beendet!</h2>
+        <div class="score-display">
+            <div class="score-number" id="final-score">0</div>
+            <div class="score-label">von 10 Punkten</div>
+        </div>
+        <div id="rating" class="rating"></div>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="restartQuiz()">
+                🔄 Quiz wiederholen
+            </button>
+            <a href="/uebungen" class="btn btn-success">
+                ✏️ Jetzt Übungen machen
+            </a>
+            <a href="/" class="btn btn-secondary">
+                🏠 Zurück zum Menü
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentQuestion = null;
+let questionCount = 0;
+let score = 0;
+const totalQuestions = 10;
+
+// Lade erste Frage beim Start
+loadQuestion();
+
+async function loadQuestion() {
+    try {
+        const response = await fetch('/api/quiz_question');
+        currentQuestion = await response.json();
+        displayQuestion();
+    } catch (error) {
+        console.error('Fehler beim Laden der Frage:', error);
+    }
+}
+
+function displayQuestion() {
+    document.getElementById('question-text').innerHTML = currentQuestion.question.replace(/\n/g, '<br>');
+    document.getElementById('answer-buttons').style.display = 'flex';
+    document.getElementById('result-container').style.display = 'none';
+}
+
+async function submitAnswer(userAnswer) {
+    questionCount++;
+
+    const response = await fetch('/api/check_quiz_answer', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            answer: userAnswer,
+            correct_answer: currentQuestion.answer
+        })
+    });
+
+    const result = await response.json();
+    const isCorrect = result.correct;
+
+    if (isCorrect) {
+        score++;
+        document.getElementById('current-score').textContent = score;
+    }
+
+    showResult(isCorrect);
+}
+
+function showResult(isCorrect) {
+    document.getElementById('answer-buttons').style.display = 'none';
+    document.getElementById('result-container').style.display = 'block';
+
+    const resultMessage = document.getElementById('result-message');
+    const explanation = document.getElementById('explanation');
+
+    if (isCorrect) {
+        resultMessage.innerHTML = '✅ <strong>Richtig!</strong>';
+        resultMessage.className = 'result-message correct';
+    } else {
+        resultMessage.innerHTML = '❌ <strong>Leider falsch</strong>';
+        resultMessage.className = 'result-message incorrect';
+    }
+
+    explanation.innerHTML = currentQuestion.explanation.replace(/\n/g, '<br>');
+}
+
+async function nextQuestion() {
+    if (questionCount >= totalQuestions) {
+        await finishQuiz();
+        showFinalResult();
+    } else {
+        document.getElementById('question-number').textContent = questionCount + 1;
+        loadQuestion();
+    }
+}
+
+async function finishQuiz() {
+    await fetch('/api/finish_quiz', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({score: score})
+    });
+}
+
+function showFinalResult() {
+    document.getElementById('quiz-container').querySelector('.quiz-header').style.display = 'none';
+    document.getElementById('question-container').style.display = 'none';
+    document.getElementById('answer-buttons').style.display = 'none';
+    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('final-result').style.display = 'block';
+
+    document.getElementById('final-score').textContent = score;
+
+    const percentage = (score / totalQuestions) * 100;
+    const rating = document.getElementById('rating');
+
+    if (percentage >= 90) {
+        rating.innerHTML = '<p class="rating-excellent">🌟 Ausgezeichnet! Du bist ein Profi!</p>';
+    } else if (percentage >= 70) {
+        rating.innerHTML = '<p class="rating-good">👍 Sehr gut! Du hast es verstanden!</p>';
+    } else if (percentage >= 50) {
+        rating.innerHTML = '<p class="rating-ok">✓ Gut! Übe noch ein bisschen!</p>';
+    } else {
+        rating.innerHTML = '<p class="rating-practice">💪 Nicht aufgeben! Lies nochmal die Theorie!</p>';
+    }
+}
+
+async function restartQuiz() {
+    await fetch('/api/reset_quiz', {method: 'POST'});
+
+    questionCount = 0;
+    score = 0;
+    document.getElementById('current-score').textContent = '0';
+    document.getElementById('question-number').textContent = '1';
+
+    document.getElementById('quiz-container').querySelector('.quiz-header').style.display = 'flex';
+    document.getElementById('question-container').style.display = 'block';
+    document.getElementById('final-result').style.display = 'none';
+
+    loadQuestion();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}Theorie - Zuordnungen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📖 Theorie: Zuordnungen</h1>
+    <p>Lerne alles über proportionale und antiproportionale Zuordnungen</p>
+</div>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'grundlagen')">1. Was ist eine Zuordnung?</button>
+    <button class="tab-button" onclick="openTab(event, 'proportional')">2. Proportional</button>
+    <button class="tab-button" onclick="openTab(event, 'antiproportional')">3. Antiproportional</button>
+    <button class="tab-button" onclick="openTab(event, 'erkennung')">4. Wie erkenne ich den Typ?</button>
+</div>
+
+<div id="grundlagen" class="tab-content active">
+    <h2>📌 Was ist eine Zuordnung?</h2>
+    <div class="theory-section">
+        <p><strong>Eine Zuordnung beschreibt einen Zusammenhang zwischen zwei Größen.</strong><br>
+        Einer Ausgangsgröße wird eine Zielgröße zugeordnet.</p>
+
+        <h3>Beispiele aus dem Alltag:</h3>
+        <ul>
+            <li>🥚 <strong>Anzahl Eier → Preis</strong><br>5 Eier kosten 2,50 €</li>
+            <li>⏱️ <strong>Arbeitszeit → Lohn</strong><br>2 Stunden Arbeit → 24 € Lohn</li>
+            <li>🚗 <strong>Geschwindigkeit → Fahrzeit</strong><br>Mit 60 km/h braucht man 2 Stunden</li>
+            <li>👷 <strong>Anzahl Arbeiter → Zeit für eine Aufgabe</strong><br>2 Arbeiter brauchen 6 Stunden</li>
+        </ul>
+
+        <h3>📊 Darstellung von Zuordnungen:</h3>
+        <div class="example-box">
+            <strong>1. Als Tabelle:</strong>
+            <table class="data-table">
+                <tr><th>Anzahl</th><th>Preis</th></tr>
+                <tr><td>1</td><td>0,50€</td></tr>
+                <tr><td>2</td><td>1,00€</td></tr>
+                <tr><td>3</td><td>1,50€</td></tr>
+            </table>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Wichtig:</h3>
+            <p>Es gibt zwei Haupttypen von Zuordnungen:</p>
+            <p><strong>1. PROPORTIONALE Zuordnungen</strong> → Je mehr, desto mehr!</p>
+            <p><strong>2. ANTIPROPORTIONALE Zuordnungen</strong> → Je mehr, desto weniger!</p>
+        </div>
+    </div>
+</div>
+
+<div id="proportional" class="tab-content">
+    <h2>📈 Proportionale Zuordnungen</h2>
+    <div class="theory-section">
+        <div class="highlight-box">
+            <h3>Definition:</h3>
+            <p>Bei einer proportionalen Zuordnung gilt:<br>
+            → Verdoppelt sich die eine Größe, verdoppelt sich auch die andere<br>
+            → Verdreifacht sich die eine Größe, verdreifacht sich auch die andere</p>
+        </div>
+
+        <h3>🎯 Erkennungsmerkmale:</h3>
+        <ul class="checklist">
+            <li>✓ <strong>JE MEHR, DESTO MEHR!</strong></li>
+            <li>✓ Beide Größen ändern sich in die <strong>GLEICHE</strong> Richtung</li>
+            <li>✓ Der Quotient (Verhältnis) bleibt <strong>KONSTANT</strong></li>
+            <li>✓ Der Graph ist eine GERADE durch den Ursprung (0,0)</li>
+        </ul>
+
+        <h3>📝 Beispiel: Eier kaufen</h3>
+        <div class="example-box">
+            <table class="data-table">
+                <tr><th>Anzahl</th><th>Preis</th><th>Preis/Stück</th></tr>
+                <tr><td>2</td><td>1,00€</td><td>0,50€</td></tr>
+                <tr><td>4</td><td>2,00€</td><td>0,50€</td></tr>
+                <tr><td>6</td><td>3,00€</td><td>0,50€</td></tr>
+            </table>
+            <p class="result">→ Doppelte Anzahl = doppelter Preis<br>
+            → Der Preis pro Stück bleibt gleich (0,50€)</p>
+        </div>
+
+        <h3>🧮 Rechenweg: Der Dreisatz</h3>
+        <div class="example-box">
+            <p><strong>Aufgabe:</strong> 5 Eier kosten 2,50€. Was kosten 7 Eier?</p>
+            <p class="step"><strong>Schritt 1:</strong> Berechne den Wert für 1 (Einheit)<br>
+            5 Eier → 2,50€<br>
+            1 Ei → 2,50€ ÷ 5 = <span class="highlight">0,50€</span></p>
+            <p class="step"><strong>Schritt 2:</strong> Multipliziere mit der gesuchten Anzahl<br>
+            1 Ei → 0,50€<br>
+            7 Eier → 0,50€ × 7 = <span class="highlight">3,50€</span></p>
+            <p class="result">✓ Antwort: 7 Eier kosten <strong>3,50€</strong></p>
+        </div>
+
+        <h3>📐 Formel:</h3>
+        <div class="formula-box">
+            <p><strong>y = k · x</strong></p>
+            <p>y = Zielgröße<br>
+            x = Ausgangsgröße<br>
+            k = Proportionalitätsfaktor (konstant!)</p>
+            <p>Beispiel: Preis = 0,50€ · Anzahl</p>
+        </div>
+    </div>
+</div>
+
+<div id="antiproportional" class="tab-content">
+    <h2>📉 Antiproportionale Zuordnungen</h2>
+    <div class="theory-section">
+        <div class="highlight-box">
+            <h3>Definition:</h3>
+            <p>Bei einer antiproportionalen Zuordnung gilt:<br>
+            → Verdoppelt sich die eine Größe, halbiert sich die andere<br>
+            → Verdreifacht sich die eine Größe, drittelt sich die andere</p>
+        </div>
+
+        <h3>🎯 Erkennungsmerkmale:</h3>
+        <ul class="checklist">
+            <li>✓ <strong>JE MEHR, DESTO WENIGER!</strong></li>
+            <li>✓ Die Größen ändern sich in <strong>ENTGEGENGESETZTE</strong> Richtungen</li>
+            <li>✓ Das Produkt bleibt <strong>KONSTANT</strong></li>
+            <li>✓ Der Graph ist eine HYPERBEL (gebogene Kurve)</li>
+        </ul>
+
+        <h3>📝 Beispiel: Arbeiter und Bauzeit</h3>
+        <div class="example-box">
+            <table class="data-table">
+                <tr><th>Arbeiter</th><th>Zeit</th><th>Arbeiter × Zeit</th></tr>
+                <tr><td>2</td><td>12 Tage</td><td>24</td></tr>
+                <tr><td>4</td><td>6 Tage</td><td>24</td></tr>
+                <tr><td>6</td><td>4 Tage</td><td>24</td></tr>
+            </table>
+            <p class="result">→ Doppelte Arbeiter = halbe Zeit<br>
+            → Das Produkt (Arbeiter × Zeit) bleibt konstant!</p>
+        </div>
+
+        <h3>🧮 Rechenweg: Antiproportionaler Dreisatz</h3>
+        <div class="example-box">
+            <p><strong>Aufgabe:</strong> 3 Arbeiter brauchen 8 Tage. Wie lange brauchen 4 Arbeiter?</p>
+            <p class="step"><strong>Schritt 1:</strong> Berechne das konstante Produkt<br>
+            3 Arbeiter × 8 Tage = <span class="highlight">24</span></p>
+            <p class="step"><strong>Schritt 2:</strong> Teile durch die neue Anzahl<br>
+            24 ÷ 4 Arbeiter = <span class="highlight">6 Tage</span></p>
+            <p class="result">✓ Antwort: 4 Arbeiter brauchen <strong>6 Tage</strong></p>
+        </div>
+
+        <h3>📐 Formel:</h3>
+        <div class="formula-box">
+            <p><strong>x · y = k</strong> (konstant)</p>
+            <p>oder umgeformt:</p>
+            <p><strong>y = k ÷ x</strong></p>
+            <p>Beispiel: Zeit = 24 ÷ Anzahl Arbeiter</p>
+        </div>
+
+        <h3>⚠️ Wichtiger Unterschied:</h3>
+        <div class="comparison-box">
+            <div class="comparison-item">
+                <h4>PROPORTIONAL:</h4>
+                <p>→ Mehr → Mehr (gleiche Richtung)<br>
+                → Quotient konstant: y/x = k<br>
+                → Rechnung: durch x teilen, dann mal neue Anzahl</p>
+            </div>
+            <div class="comparison-item">
+                <h4>ANTIPROPORTIONAL:</h4>
+                <p>→ Mehr → Weniger (entgegengesetzt)<br>
+                → Produkt konstant: x · y = k<br>
+                → Rechnung: Produkt bilden, dann durch neue Anzahl teilen</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="erkennung" class="tab-content">
+    <h2>🔍 Wie erkenne ich den Typ der Zuordnung?</h2>
+    <div class="theory-section">
+        <h3>📋 Methode 1: Die Frage "Je mehr, desto...?"</h3>
+        <div class="method-box">
+            <p>Stelle dir die Frage:<br>
+            <strong>"Wenn die erste Größe größer wird, wird dann auch die zweite größer?"</strong></p>
+            <p class="answer">✓ JA, beide werden größer → <span class="proportional">PROPORTIONAL</span></p>
+            <p class="answer">✓ NEIN, die zweite wird kleiner → <span class="antiproportional">ANTIPROPORTIONAL</span></p>
+        </div>
+
+        <h3>Beispiele:</h3>
+        <div class="example-box">
+            <p>🥚 Mehr Eier kaufen → höherer Preis<br>
+            → Beide größer → <span class="proportional">PROPORTIONAL ✓</span></p>
+            <p>👷 Mehr Arbeiter → weniger Zeit<br>
+            → Eine größer, andere kleiner → <span class="antiproportional">ANTIPROPORTIONAL ✓</span></p>
+        </div>
+
+        <h3>📊 Methode 2: Tabelle prüfen</h3>
+        <div class="method-box">
+            <p><strong>PROPORTIONAL:</strong> Quotient bilden (Zweiter Wert ÷ Erster Wert)<br>
+            → Ist der Quotient immer gleich? → PROPORTIONAL</p>
+            <p><strong>ANTIPROPORTIONAL:</strong> Produkt bilden (Erster Wert × Zweiter Wert)<br>
+            → Ist das Produkt immer gleich? → ANTIPROPORTIONAL</p>
+        </div>
+
+        <h3>🎯 Methode 3: Verdoppelungstest</h3>
+        <div class="method-box">
+            <p>Verdopple die erste Größe und schau, was passiert:</p>
+            <p class="answer">✓ Zweite Größe verdoppelt sich auch → <span class="proportional">PROPORTIONAL</span></p>
+            <p class="answer">✓ Zweite Größe halbiert sich → <span class="antiproportional">ANTIPROPORTIONAL</span></p>
+        </div>
+
+        <h3>✅ Checkliste zum Erkennen:</h3>
+        <div class="checklist-box">
+            <p>1️⃣ Werden beide Größen größer?<br>
+            → JA: wahrscheinlich PROPORTIONAL</p>
+            <p>2️⃣ Wird eine größer, die andere kleiner?<br>
+            → JA: wahrscheinlich ANTIPROPORTIONAL</p>
+            <p>3️⃣ Teste mit Zahlen:<br>
+            → Quotient konstant? → PROPORTIONAL<br>
+            → Produkt konstant? → ANTIPROPORTIONAL</p>
+            <p>4️⃣ Verdoppelungstest durchführen</p>
+            <p>5️⃣ Bei Unsicherheit: Tabelle erstellen und prüfen!</p>
+        </div>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <a href="/quiz" class="btn btn-primary">Weiter zum Quiz 🎯</a>
+    <a href="/" class="btn btn-secondary">Zurück zum Menü</a>
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+    }
+    tablinks = document.getElementsByClassName("tab-button");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+</script>
+{% endblock %}

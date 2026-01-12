@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Übungen - Zuordnungen rechnen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>✏️ Rechenübungen</h1>
+    <p>Übe den Dreisatz - die Aufgaben passen sich deinem Level an!</p>
+</div>
+
+<div class="level-display">
+    <span class="level-badge">Level <span id="current-level">{{ level }}</span></span>
+    <span class="level-info">Die Schwierigkeit passt sich automatisch an deine Leistung an</span>
+</div>
+
+<div id="exercise-container">
+    <div id="question-container" class="exercise-box">
+        <p id="exercise-question">Lade Aufgabe...</p>
+    </div>
+
+    <div id="answer-form" class="answer-form">
+        <label for="answer-input">Deine Antwort:</label>
+        <div class="input-group">
+            <input type="number" id="answer-input" step="0.01" placeholder="Ergebnis eingeben">
+            <span id="unit-display"></span>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="checkAnswer()">
+                ✓ Prüfen
+            </button>
+            <button class="btn btn-info" onclick="showHint()">
+                💡 Tipp
+            </button>
+            <button class="btn btn-secondary" onclick="skipExercise()">
+                ⏭️ Überspringen
+            </button>
+        </div>
+    </div>
+
+    <div id="result-container" class="result-container" style="display: none;">
+        <div id="result-message" class="result-message"></div>
+        <div id="solution-display" class="solution-display"></div>
+        <div id="level-change-message" class="level-change-message"></div>
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="loadNewExercise()">
+                ➡️ Nächste Aufgabe
+            </button>
+            <button class="btn btn-secondary" onclick="tryAgain()">
+                🔄 Nochmal versuchen
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <a href="/fortschritt" class="btn btn-info">📊 Fortschritt ansehen</a>
+    <a href="/" class="btn btn-secondary">🏠 Zurück zum Menü</a>
+</div>
+
+<script>
+let currentExercise = null;
+
+// Lade erste Aufgabe beim Start
+loadExercise();
+
+async function loadExercise() {
+    try {
+        const response = await fetch('/api/exercise');
+        currentExercise = await response.json();
+        displayExercise();
+    } catch (error) {
+        console.error('Fehler beim Laden der Aufgabe:', error);
+    }
+}
+
+function displayExercise() {
+    document.getElementById('exercise-question').innerHTML = currentExercise.question.replace(/\n/g, '<br>');
+    document.getElementById('unit-display').textContent = currentExercise.unit || '';
+    document.getElementById('answer-input').value = '';
+    document.getElementById('answer-input').focus();
+    document.getElementById('answer-form').style.display = 'block';
+    document.getElementById('result-container').style.display = 'none';
+}
+
+async function checkAnswer() {
+    const userAnswer = document.getElementById('answer-input').value;
+
+    if (!userAnswer) {
+        alert('Bitte gib eine Antwort ein!');
+        return;
+    }
+
+    const response = await fetch('/api/check_exercise', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            user_answer: userAnswer,
+            correct_answer: currentExercise.answer,
+            tolerance: currentExercise.tolerance
+        })
+    });
+
+    const result = await response.json();
+    showResult(result);
+}
+
+function showResult(result) {
+    document.getElementById('answer-form').style.display = 'none';
+    document.getElementById('result-container').style.display = 'block';
+
+    const resultMessage = document.getElementById('result-message');
+    const solutionDisplay = document.getElementById('solution-display');
+    const levelChangeMessage = document.getElementById('level-change-message');
+
+    if (result.correct) {
+        resultMessage.innerHTML = '✅ <strong>Richtig! Sehr gut!</strong>';
+        resultMessage.className = 'result-message correct';
+    } else {
+        const userAnswer = document.getElementById('answer-input').value;
+        resultMessage.innerHTML = `❌ <strong>Leider nicht richtig</strong><br>
+            Deine Antwort: ${userAnswer}<br>
+            Richtige Antwort: ${currentExercise.answer}`;
+        resultMessage.className = 'result-message incorrect';
+    }
+
+    solutionDisplay.innerHTML = '<h3>📝 Lösungsweg:</h3>' +
+        currentExercise.solution.replace(/\n/g, '<br>');
+
+    // Zeige Level-Änderung
+    if (result.level_up) {
+        document.getElementById('current-level').textContent = result.new_level;
+        levelChangeMessage.innerHTML = `🎉 <strong>${result.message}</strong>`;
+        levelChangeMessage.className = 'level-change-message level-up';
+        levelChangeMessage.style.display = 'block';
+    } else if (result.level_down) {
+        document.getElementById('current-level').textContent = result.new_level;
+        levelChangeMessage.innerHTML = `ℹ️ <strong>${result.message}</strong>`;
+        levelChangeMessage.className = 'level-change-message level-down';
+        levelChangeMessage.style.display = 'block';
+    } else {
+        levelChangeMessage.style.display = 'none';
+    }
+}
+
+function showHint() {
+    alert('💡 Tipp:\n\n' + currentExercise.hint);
+}
+
+function loadNewExercise() {
+    loadExercise();
+}
+
+function tryAgain() {
+    document.getElementById('answer-form').style.display = 'block';
+    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('answer-input').value = '';
+    document.getElementById('answer-input').focus();
+}
+
+function skipExercise() {
+    if (confirm('Möchtest du diese Aufgabe wirklich überspringen?')) {
+        loadNewExercise();
+    }
+}
+
+// Enter-Taste zum Prüfen
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('answer-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+});
+</script>
+{% endblock %}
