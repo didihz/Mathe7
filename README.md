@@ -1,139 +1,184 @@
-# Mathematical Utilities with Comprehensive Error Handling
+# Mathe7 - Mathematik Lern-Repository
 
-This project demonstrates best practices for error handling in Python with clear, informative error messages.
+Dieses Repository enthält Python-Projekte zum Lernen und Üben von Mathematik, mit Fokus auf **Fehlerbehandlung** und **interaktives Lernen**.
 
-## Features
+## 📂 Projekte
 
-- **Custom Exception Hierarchy**: Specialized exceptions for different error types
-- **Input Validation**: All functions validate inputs before processing
-- **Clear Error Messages**: Every error includes context about what went wrong and how to fix it
-- **Type Safety**: Functions check input types and raise appropriate errors
-- **Domain Validation**: Mathematical constraints are validated (e.g., no negative square roots, no division by zero)
+### 1. 📐 Zuordnungen Lern-App
 
-## Error Handling Patterns Implemented
+Eine interaktive Desktop-Anwendung zum Lernen von proportionalen und antiproportionalen Zuordnungen.
 
-### 1. Custom Exception Classes
+**Features:**
+- 📖 Ausführliche Theorie mit 4 Kapiteln
+- 🎯 Quiz zum Erkennen von Zuordnungstypen (10 Fragen)
+- ✏️ Rechenübungen mit adaptiver Schwierigkeit (Level 1-5)
+- 📊 Fortschrittsverfolgung
+- 💡 Hilfestellungen und Tipps
+- 🎮 Intelligente Levelanpassung für jeden Schüler
 
-```python
-class MathError(Exception):
-    """Base exception for mathematical operation errors."""
-    pass
-
-class InvalidInputError(MathError):
-    """Raised when input validation fails."""
-    pass
-
-class DivisionError(MathError):
-    """Raised when division operations encounter errors."""
-    pass
-
-class DomainError(MathError):
-    """Raised when input is outside the valid domain."""
-    pass
-```
-
-### 2. Input Type Validation
-
-Every function validates input types before processing:
-
-```python
-if not isinstance(numerator, (int, float)):
-    raise InvalidInputError(
-        f"Numerator must be a number, got {type(numerator).__name__}: {numerator}"
-    )
-```
-
-### 3. Domain-Specific Validation
-
-Functions check mathematical constraints:
-
-```python
-if denominator == 0:
-    raise DivisionError(
-        "Cannot divide by zero. Division by zero is undefined in mathematics."
-    )
-```
-
-### 4. Clear, Actionable Error Messages
-
-All errors include:
-- What went wrong
-- What was received
-- How to fix it (when applicable)
-
-Example:
-```python
-raise IndexError(
-    f"Index {index} is out of bounds for list of length {len(data)}. "
-    f"Valid indices are 0 to {len(data) - 1}."
-)
-```
-
-### 5. Edge Case Handling
-
-Special cases are explicitly handled:
-- 0^0 (mathematically undefined)
-- Negative bases with fractional exponents
-- Empty lists
-- Extremely large values
-
-## Functions
-
-| Function | Purpose | Error Handling |
-|----------|---------|----------------|
-| `safe_divide()` | Division with zero checking | Validates types, checks for division by zero |
-| `calculate_average()` | Calculate mean of numbers | Validates list, checks for empty list, validates all elements |
-| `calculate_square_root()` | Square root calculation | Checks for negative numbers, validates types |
-| `calculate_factorial()` | Factorial calculation | Validates integer input, checks for negative numbers, limits size |
-| `calculate_power()` | Exponentiation | Handles 0^0, negative bases, overflow |
-| `find_nth_element()` | Safe list indexing | Validates index bounds, checks for empty lists |
-| `calculate_percentage()` | Percentage calculation | Checks for zero denominator, validates positive values |
-
-## Usage Examples
-
-### Successful Operation
-```python
-result = safe_divide(10, 2)
-print(result)  # Output: 5.0
-```
-
-### Error Handling
-```python
-try:
-    result = safe_divide(10, 0)
-except DivisionError as e:
-    print(f"Error: {e}")
-    # Output: Error: Cannot divide by zero. Division by zero is undefined in mathematics.
-```
-
-## Running Tests
-
-Run the test suite to see error handling in action:
-
+**Start:**
 ```bash
-python test_math_utils.py
+# Linux/Mac
+./start_app.sh
+
+# oder direkt
+python3 zuordnungen_app.py
+
+# Windows
+start_app.bat
 ```
 
-The test suite demonstrates:
-- ✓ Successful operations
-- ✓ Expected error conditions being caught
-- ✓ Clear error messages being displayed
+**Dokumentation:** [README_APP.md](README_APP.md)
 
-## Key Benefits of This Approach
+---
 
-1. **Debugging**: Clear error messages make it easy to identify and fix issues
-2. **User Experience**: Users understand what went wrong and how to fix it
-3. **Maintainability**: Custom exceptions make code easier to maintain
-4. **Robustness**: Input validation prevents unexpected behavior
-5. **Documentation**: Error messages serve as inline documentation
+### 2. 🔧 Mathematical Utilities mit Error Handling
 
-## Best Practices Applied
+Eine Sammlung mathematischer Funktionen, die **best practices für Error Handling** demonstrieren.
 
-- ✅ Always validate inputs before processing
-- ✅ Use custom exception classes for different error categories
-- ✅ Include context in error messages (what was expected vs. what was received)
-- ✅ Provide actionable guidance in error messages
-- ✅ Handle edge cases explicitly
-- ✅ Use try-except blocks to catch unexpected errors
-- ✅ Document expected exceptions in docstrings
-- ✅ Fail fast with clear errors rather than producing incorrect results
+**Features:**
+- Benutzerdefinierte Exception-Hierarchie
+- Umfassende Input-Validierung
+- Klare, informative Fehlermeldungen
+- 8 Funktionen mit robuster Fehlerbehandlung
+
+**Funktionen:**
+- `safe_divide()` - Sichere Division mit Zero-Check
+- `calculate_average()` - Durchschnitt mit Validierung
+- `calculate_square_root()` - Wurzel mit Domain-Check
+- `calculate_factorial()` - Fakultät mit Constraints
+- `calculate_power()` - Potenzierung mit Edge-Cases
+- `find_nth_element()` - Sicheres List-Indexing
+- `calculate_percentage()` - Prozentrechnung
+
+**Tests ausführen:**
+```bash
+python3 test_math_utils.py
+```
+
+---
+
+## 🚀 Schnellstart
+
+### Voraussetzungen
+- Python 3.6 oder höher
+- tkinter (für die Zuordnungen-App)
+
+### Installation prüfen
+```bash
+python3 --version
+python3 -c "import tkinter"
+```
+
+Falls tkinter fehlt:
+- **Ubuntu/Debian:** `sudo apt-get install python3-tk`
+- **Fedora:** `sudo dnf install python3-tkinter`
+- **macOS/Windows:** Normalerweise enthalten
+
+### Projekte nutzen
+
+**Zuordnungen-App starten:**
+```bash
+python3 zuordnungen_app.py
+```
+
+**Math Utils testen:**
+```bash
+python3 test_math_utils.py
+```
+
+**Math Utils verwenden:**
+```python
+import math_utils
+
+# Beispiel
+result = math_utils.safe_divide(10, 2)
+print(result)  # 5.0
+```
+
+---
+
+## 📚 Lernziele
+
+### Für Schüler (Zuordnungen-App):
+- ✅ Zuordnungen erkennen und unterscheiden
+- ✅ Proportionale und antiproportionale Zuordnungen berechnen
+- ✅ Dreisatz-Methode sicher anwenden
+- ✅ Alltagsprobleme mit Mathematik lösen
+
+### Für Entwickler (Math Utils):
+- ✅ Robuste Fehlerbehandlung implementieren
+- ✅ Custom Exceptions verwenden
+- ✅ Input-Validierung durchführen
+- ✅ Aussagekräftige Fehlermeldungen schreiben
+- ✅ Edge-Cases behandeln
+
+---
+
+## 📖 Dokumentation
+
+- **Zuordnungen App:** [README_APP.md](README_APP.md) - Ausführliche Anleitung
+- **Math Utils:** Siehe Docstrings in `math_utils.py`
+- **Error Handling Best Practices:** Siehe Code-Kommentare
+
+---
+
+## 🎯 Projektziele
+
+Dieses Repository demonstriert zwei wichtige Aspekte der Software-Entwicklung:
+
+1. **Bildung & Interaktivität**
+   - Intuitive Benutzeroberflächen
+   - Adaptive Lernsysteme
+   - Sofortiges Feedback
+   - Motivierende Elemente
+
+2. **Code-Qualität & Robustheit**
+   - Umfassende Fehlerbehandlung
+   - Klare Fehlermeldungen
+   - Input-Validierung
+   - Testbarkeit
+
+---
+
+## 📂 Projektstruktur
+
+```
+Mathe7/
+├── README.md                  # Diese Datei
+├── README_APP.md             # Dokumentation Zuordnungen-App
+│
+├── zuordnungen_app.py        # Hauptanwendung
+├── start_app.sh              # Starter für Linux/Mac
+├── start_app.bat             # Starter für Windows
+│
+├── math_utils.py             # Math-Bibliothek mit Error Handling
+├── test_math_utils.py        # Tests für Math-Bibliothek
+│
+├── requirements.txt          # Python-Abhängigkeiten
+└── .gitignore               # Git-Konfiguration
+```
+
+---
+
+## 🤝 Beitragen
+
+Verbesserungsvorschläge sind willkommen! Besonders:
+- Neue Übungsaufgaben für die Zuordnungen-App
+- Weitere mathematische Funktionen mit Error Handling
+- Übersetzungen in andere Sprachen
+- UI-Verbesserungen
+
+---
+
+## 📝 Lizenz
+
+Dieses Projekt wurde für Bildungszwecke erstellt und darf frei verwendet werden.
+
+---
+
+## 🎓 Viel Erfolg!
+
+Egal ob du Mathematik lernst oder besseren Code schreiben möchtest - dieses Repository hilft dir weiter! 🚀
+
+Bei Fragen oder Problemen, erstelle bitte ein Issue im Repository.

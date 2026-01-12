@@ -1,0 +1,9 @@
+# Requirements für die Zuordnungen Lern-App
+# Python 3.6 oder höher erforderlich
+
+# tkinter ist normalerweise in Python enthalten
+# Falls nicht, installiere es mit:
+# Ubuntu/Debian: sudo apt-get install python3-tk
+# Fedora: sudo dnf install python3-tkinter
+# macOS: tkinter ist standardmäßig enthalten
+# Windows: tkinter ist standardmäßig enthalten
