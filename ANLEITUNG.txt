@@ -1,0 +1,86 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║         🎓 ZUORDNUNGEN LERN-APP - SCHNELLSTART 🎓          ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+📱 SO EINFACH GEHT'S:
+═══════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│  🖱️  DOPPELKLICK AUF EINE DIESER DATEIEN:                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Windows:         START_HIER.py                             │
+│                   oder start_app.bat                        │
+│                                                             │
+│  Mac/Linux:       START_HIER.py                             │
+│                   oder start_app.sh                         │
+│                                                             │
+│  Überall:         zuordnungen_app.py                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+
+📋 ALTERNATIVE: KOMMANDOZEILE
+═══════════════════════════════════════════════════════════════
+
+Falls Doppelklick nicht funktioniert, öffne ein Terminal/
+Kommandozeile in diesem Ordner und tippe:
+
+    python3 zuordnungen_app.py
+
+oder:
+
+    python zuordnungen_app.py
+
+
+❓ PROBLEME?
+═══════════════════════════════════════════════════════════════
+
+Problem: "Python ist nicht installiert"
+Lösung:  Installiere Python von https://www.python.org
+         (Version 3.6 oder höher)
+
+Problem: "tkinter nicht gefunden"
+Lösung:
+  • Ubuntu/Debian: sudo apt-get install python3-tk
+  • Fedora: sudo dnf install python3-tkinter
+  • Mac/Windows: Sollte schon installiert sein
+
+Problem: "Nichts passiert beim Doppelklick"
+Lösung:
+  1. Rechtsklick auf START_HIER.py
+  2. Wähle "Öffnen mit" → "Python"
+
+  Oder nutze die Kommandozeile (siehe oben)
+
+
+📚 WAS MACHT DIE APP?
+═══════════════════════════════════════════════════════════════
+
+✓ Theorie lernen (4 Kapitel)
+✓ Quiz machen (10 Fragen)
+✓ Übungen rechnen (Level 1-5, automatische Anpassung)
+✓ Fortschritt verfolgen
+
+
+🎮 LERNTIPPS
+═══════════════════════════════════════════════════════════════
+
+1. Lies zuerst die Theorie (alle 4 Kapitel)
+2. Mache dann das Quiz
+3. Übe täglich 5-10 Aufgaben
+4. Nutze den Tipp-Button bei Problemen
+5. Lies die Lösungswege genau durch
+
+
+📖 MEHR INFOS?
+═══════════════════════════════════════════════════════════════
+
+Öffne die Datei:  README_APP.md
+
+
+🎓 Viel Erfolg beim Lernen! 🚀
+
